@@ -19,13 +19,9 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          # จัดการสิทธิ์โฟลเดอร์ให้ระบบเข้าถึงได้
           sudo chown -R runner:docker .
-          
-          # ล้างข้อมูลการ Build เก่าที่อาจจะค้างจากตอนที่โครงสร้างไฟล์ยังไม่นิ่ง
-          buildozer android clean
-          
-          # เริ่มขั้นตอนการ Build (ขั้นตอนนี้จะใช้เวลานานที่สุด)
+          # ตรวจสอบก่อนว่าถ้ามีโฟลเดอร์ .buildozer ถึงจะทำการ clean เพื่อป้องกัน Error
+          if [ -d ".buildozer" ]; then buildozer android clean; fi
           yes | buildozer android debug
         env:
           ACCEPT_SDK_LICENSE: "yes"

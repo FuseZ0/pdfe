@@ -19,13 +19,13 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          # 1. จัดการสิทธิ์โฟลเดอร์ให้ Buildozer เข้าถึงได้
+          # จัดการสิทธิ์โฟลเดอร์ให้ระบบเข้าถึงได้
           sudo chown -R runner:docker .
           
-          # 2. ล้าง Cache เก่าเพื่อให้ระบบรับรู้โครงสร้างโฟลเดอร์ /icons ที่คุณเพิ่งจัดใหม่
+          # ล้างข้อมูลการ Build เก่าที่อาจจะค้างจากตอนที่โครงสร้างไฟล์ยังไม่นิ่ง
           buildozer android clean
           
-          # 3. เริ่มขั้นตอน Build (จะใช้เวลานานหน่อยในขั้นตอนนี้)
+          # เริ่มขั้นตอนการ Build (ขั้นตอนนี้จะใช้เวลานานที่สุด)
           yes | buildozer android debug
         env:
           ACCEPT_SDK_LICENSE: "yes"
